@@ -59,10 +59,17 @@ class DishCard extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  Text(
-                    dish.description,
-                    style: TextStyle(color: Colors.grey.shade700, height: 1.4),
-                  ),
+
+Expanded(
+  child: Text(
+    dish.description,
+    style: TextStyle(
+      color: Colors.grey.shade700,
+      height: 1.4,
+    ),
+    overflow: TextOverflow.ellipsis,
+  ),
+    ),
                 ],
               ),
             ),
