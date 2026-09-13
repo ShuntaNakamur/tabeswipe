@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'features/discovery/presentation/pages/discovery_page.dart';
-import 'features/like/like_state.dart';
 
+import 'features/like/like_state.dart';
+import 'features/navigation/presentation/pages/home_page.dart';
 void main() {
   runApp(TabeswipeApp());
 }
@@ -19,7 +19,7 @@ class TabeswipeApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
       ),
-      home: DiscoveryPage(likeState: likeState),
+      home: HomePage(likeState: likeState),
     );
   }
 }
