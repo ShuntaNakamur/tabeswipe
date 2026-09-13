@@ -3,6 +3,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
 import '../../data/dummy_dishes.dart';
 import '../widgets/dish_card.dart';
+import '../../../like/like_state.dart';
 
 class DiscoveryPage extends StatefulWidget {
   const DiscoveryPage({super.key});
@@ -14,6 +15,7 @@ class DiscoveryPage extends StatefulWidget {
 class _DiscoveryPageState extends State<DiscoveryPage> {
   final CardSwiperController _controller = CardSwiperController();
 
+  final LikeState _likeState = LikeState();
   @override
   void dispose() {
     _controller.dispose();
@@ -21,14 +23,21 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
   }
 
   bool _onSwipe(
-    int previousIndex,
-    int? currentIndex,
-    CardSwiperDirection direction,
-  ) {
-    debugPrint('swipe: $previousIndex → $currentIndex / $direction');
+  int previousIndex,
+  int? currentIndex,
+  CardSwiperDirection direction,
+) {
+  debugPrint('swipe: $previousIndex → $currentIndex / $direction');
 
-    return true;
-  }
+  if (direction == CardSwiperDirection.right) {
+  setState(() {
+    _likeState.like(dummyDishes[previousIndex]);
+  });
+
+  debugPrint('liked: ${dummyDishes[previousIndex].name}');
+}
+  return true;
+}
 
   @override
   Widget build(BuildContext context) {
