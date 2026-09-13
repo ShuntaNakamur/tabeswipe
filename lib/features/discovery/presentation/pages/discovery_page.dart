@@ -90,7 +90,10 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                         horizontalOffsetPercentage,
                         verticalOffsetPercentage,
                       ) {
-                        return DishCard(dish: dummyDishes[index]);
+                        return DishCard(
+  dish: dummyDishes[index],
+  likeState: widget.likeState,
+);
                       },
                 ),
               ),
