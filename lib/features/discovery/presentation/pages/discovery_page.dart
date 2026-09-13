@@ -4,9 +4,14 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import '../../data/dummy_dishes.dart';
 import '../widgets/dish_card.dart';
 import '../../../like/like_state.dart';
+import '../../../like/presentation/pages/like_page.dart';
 
 class DiscoveryPage extends StatefulWidget {
-  const DiscoveryPage({super.key});
+  final LikeState likeState;
+  const DiscoveryPage({
+  super.key,
+  required this.likeState,
+  });
 
   @override
   State<DiscoveryPage> createState() => _DiscoveryPageState();
@@ -15,7 +20,6 @@ class DiscoveryPage extends StatefulWidget {
 class _DiscoveryPageState extends State<DiscoveryPage> {
   final CardSwiperController _controller = CardSwiperController();
 
-  final LikeState _likeState = LikeState();
   @override
   void dispose() {
     _controller.dispose();
@@ -31,7 +35,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
 
   if (direction == CardSwiperDirection.right) {
   setState(() {
-    _likeState.like(dummyDishes[previousIndex]);
+    widget.likeState.like(dummyDishes[previousIndex]);
   });
 
   debugPrint('liked: ${dummyDishes[previousIndex].name}');
@@ -43,12 +47,27 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Tabeswipe',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
+  title: const Text(
+    'Tabeswipe',
+    style: TextStyle(fontWeight: FontWeight.bold),
+  ),
+  centerTitle: true,
+  actions: [
+    IconButton(
+      icon: const Icon(Icons.favorite),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LikePage(
+              likeState: widget.likeState,
+            ),
+          ),
+        );
+      },
+    ),
+  ],
+),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
