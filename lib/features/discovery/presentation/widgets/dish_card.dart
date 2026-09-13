@@ -13,63 +13,78 @@ class DishCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       elevation: 6,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Stack(
+        fit: StackFit.expand,
         children: [
-          Expanded(
-            flex: 6,
+          Image.asset(dish.imagePath,fit: BoxFit.contain),
+
+          // 下部の情報を読みやすくするグラデーション
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
             child: Container(
-              color: Colors.orange.shade100,
-              child: Center(
-                child: Text('🍜', style: const TextStyle(fontSize: 80)),
+              padding: const EdgeInsets.fromLTRB(20, 80, 20, 24),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.transparent, Colors.black87],
+                ),
               ),
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Padding(
-              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     dish.name,
                     style: const TextStyle(
-                      fontSize: 24,
+                      color: Colors.white,
+                      fontSize: 26,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    dish.restaurantName,
-                    style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
+                    '@${dish.restaurantName}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Text(
-                        dish.category,
-                        style: TextStyle(color: Colors.grey.shade600),
+                        '#${dish.category}',
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 14,
+                        ),
                       ),
                       const SizedBox(width: 12),
                       Text(
                         '¥${dish.price}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 12),
-
-Expanded(
-  child: Text(
-    dish.description,
-    style: TextStyle(
-      color: Colors.grey.shade700,
-      height: 1.4,
-    ),
-    overflow: TextOverflow.ellipsis,
-  ),
-    ),
+                  const SizedBox(height: 10),
+                  Text(
+                    dish.description,
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                      height: 1.4,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
             ),
